@@ -1,11 +1,9 @@
 import 'package:fk_sql_crud/database_helper/database_helper.dart';
-import 'package:fk_sql_crud/designation_builder.dart';
 import 'package:fk_sql_crud/employee_builder.dart';
 import 'package:fk_sql_crud/model/designation_model.dart';
 import 'package:fk_sql_crud/model/employee_model.dart';
 import 'package:fk_sql_crud/view/designation_form_page.dart';
 import 'package:fk_sql_crud/view/employee_form_page.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 
 class IndexPage extends StatefulWidget {
@@ -22,9 +20,9 @@ class _IndexPageState extends State<IndexPage> {
     return await _databaseHelper.employees();
   }
 
-  Future<List<Designation>> _getDesignation() async {
-    return await _databaseHelper.designations();
-  }
+  // Future<List<Designation>> _getDesignation() async {
+  //   return await _databaseHelper.designations();
+  // }
 
   Future<void> _onEmployeeDelete(Employee employee) async {
     await _databaseHelper.deleteEmployee(employee.id!);
@@ -39,76 +37,77 @@ class _IndexPageState extends State<IndexPage> {
         appBar: AppBar(
           title: Text('Employee'),
           centerTitle: true,
-          bottom: TabBar(
-            tabs: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Text('Employee'),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Text('Designation'),
-              ),
-            ],
-          ),
+         actions: [
+           IconButton(onPressed: (){
+             Navigator.of(context)
+                 .push(
+               MaterialPageRoute(
+                 builder: (_) => EmployeeFormPage(),
+                 fullscreenDialog: true,
+               ),
+             )
+                 .then((_) => setState(() {}));
+           }, icon: Icon(Icons.add))
+         ],
         ),
-        body: TabBarView(
-          children: [
-            EmployeeBuilder(
-              future: _getEmployee(),
-              onEdit: (value) {
-                {
-                  Navigator.of(context)
-                      .push(
-                    MaterialPageRoute(
-                      builder: (_) => EmployeeFormPage(employee: value),
-                      fullscreenDialog: true,
-                    ),
-                  )
-                      .then((_) => setState(() {}));
-                }
-              },
-              onDelete: _onEmployeeDelete,
-            ),
-            DesignationBuilder(
-              future: _getDesignation(),
-            ),
-          ],
+        body: EmployeeBuilder(
+          listEmployees: _getEmployee(), onEdit: (Employee ) {  }, onDelete: (Employee ) {  },
+          // children: [
+          //   EmployeeBuilder(
+          //
+          //     onEdit: (value) {
+          //       {
+          //         Navigator.of(context)
+          //             .push(
+          //           MaterialPageRoute(
+          //             builder: (_) => EmployeeFormPage(employee: value),
+          //             fullscreenDialog: true,
+          //           ),
+          //         )
+          //             .then((_) => setState(() {}));
+          //       }
+          //     },
+          //     onDelete: _onEmployeeDelete,
+          //   ),
+          //   DesignationBuilder(
+          //     future: _getDesignation(),
+          //   ),
+          // ],
         ),
-        floatingActionButton: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .push(
-                  MaterialPageRoute(
-                    builder: (_) => DesignationFormPage(),
-                    fullscreenDialog: true,
-                  ),
-                )
-                    .then((_) => setState(() {}));
-              },
-              heroTag: 'addDesignation',
-              child: FaIcon(FontAwesomeIcons.plus),
-            ),
-            SizedBox(height: 12.0),
-            FloatingActionButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .push(
-                  MaterialPageRoute(
-                    builder: (_) => EmployeeFormPage(),
-                    fullscreenDialog: true,
-                  ),
-                )
-                    .then((_) => setState(() {}));
-              },
-              heroTag: 'addEmployee',
-              child: Text("Add"),
-            ),
-          ],
-        ),
+        // floatingActionButton: Column(
+        //   mainAxisAlignment: MainAxisAlignment.end,
+        //   children: [
+        //     FloatingActionButton(
+        //       onPressed: () {
+        //         Navigator.of(context)
+        //             .push(
+        //           MaterialPageRoute(
+        //             builder: (_) => DesignationFormPage(),
+        //             fullscreenDialog: true,
+        //           ),
+        //         )
+        //             .then((_) => setState(() {}));
+        //       },
+        //       heroTag: 'addDesignation',
+        //       child: FaIcon(FontAwesomeIcons.plus),
+        //     ),
+        //     SizedBox(height: 12.0),
+        //     FloatingActionButton(
+        //       onPressed: () {
+        //         Navigator.of(context)
+        //             .push(
+        //           MaterialPageRoute(
+        //             builder: (_) => EmployeeFormPage(),
+        //             fullscreenDialog: true,
+        //           ),
+        //         )
+        //             .then((_) => setState(() {}));
+        //       },
+        //       heroTag: 'addEmployee',
+        //       child: Text("Add"),
+        //     ),
+        //   ],
+        // ),
       ),
     );
   }

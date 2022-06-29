@@ -87,92 +87,101 @@ class _EmployeeFormPageState extends State<EmployeeFormPage> {
         title: Text('Add Employee'),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextField(
-              controller: _firstNameController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'First Name',
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextField(
+                controller: _firstNameController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'First Name',
+                ),
               ),
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: _lastNameController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Last Name',
+              SizedBox(height: 16.0),
+              TextField(
+                controller: _lastNameController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Last Name',
+                ),
               ),
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Email',
+              SizedBox(height: 16.0),
+              TextField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Email',
+                ),
               ),
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: _dobController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'DOB',
+              SizedBox(height: 16.0),
+              TextField(
+                controller: _dobController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'DOB',
+                ),
               ),
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: _salaryController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Salary',
+              SizedBox(height: 16.0),
+              TextField(
+                controller: _salaryController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Salary',
+                ),
               ),
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: _imageController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Image',
+              SizedBox(height: 16.0),
+              TextField(
+                controller: _imageController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Image',
+                ),
               ),
-            ),
 
-            SizedBox(height: 24.0),
-            // Breed Selector
-            FutureBuilder<List<Designation>>(
-              future: _getDesignations(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Text("Designation");
-                }
-                return DesignationSelector(
-                  designations : _designations.map((e) => e.designation).toList(),
-                  selectedIndex: _selectedDesignation,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedDesignation = value;
-                    });
-                  },
-                );
-              },
-            ),
-            SizedBox(height: 24.0),
-            SizedBox(
-              height: 45.0,
-              child: ElevatedButton(
-                onPressed: _onSave,
-                child: Text(
-                  'Save Employee',
-                  style: TextStyle(
-                    fontSize: 16.0,
+              SizedBox(height: 24.0),
+              // Breed Selector
+              // DropdownButtonHideUnderline(
+              //     child: DropdownButton(
+              //       value: _designations,
+              //       items: [],
+              //
+              //     )
+              // ),
+              FutureBuilder<List<Designation>>(
+                future: _getDesignations(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text("Designation");
+                  }
+                  return DesignationSelector(
+                    designations : _designations.map((e) => e.designation).toList(),
+                    selectedIndex: _selectedDesignation,
+                    onChanged: (value) {
+                      setState(() {
+                       _selectedDesignation = value;
+                      });
+                    },
+                  );
+                },
+              ),
+              SizedBox(height: 24.0),
+              SizedBox(
+                height: 45.0,
+                child: ElevatedButton(
+                  onPressed: _onSave,
+                  child: Text(
+                    'Save Employee',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
