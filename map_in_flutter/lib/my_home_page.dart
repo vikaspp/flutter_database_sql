@@ -17,19 +17,36 @@ class _MyHomePageState extends State<MyHomePage>  {
   //GoogleMapController? _controller;
 //  final LatLng _center = const LatLng(22.9937067, 72.501555);
 
-  final List<Marker> _markers =  <Marker>[
-    Marker(
+   final List<Marker> _markers =  <Marker>[
+    const Marker(
         markerId: MarkerId('1'),
-        position: LatLng(28.644800, 77.216721),
+        position: LatLng(28.604800, 77.216721),
         infoWindow: InfoWindow(
           title: 'marker tiote'
-        )
-    )
+        ),
+
+    ),
+    const Marker(
+      markerId: MarkerId('3'),
+      position: LatLng(28.641800, 77.216721),
+      infoWindow: const InfoWindow(
+          title: 'marker tiote'
+      ),
+
+    ),
+    const Marker(
+      markerId: MarkerId('4'),
+      position: LatLng(28.642800, 77.216721),
+      infoWindow: InfoWindow(
+          title: 'marker tiote'
+      ),
+
+    ),
   ];
 
-  static  CameraPosition _initPostion = CameraPosition(
-      target: LatLng(22.9937067, 72.501555),
-      zoom: 14,
+  static  CameraPosition _initPostion = const CameraPosition(
+      target: const LatLng(22.9937067, 72.501555),
+      zoom: 9,
   );
 
   Future<Position> getUserCurrentLocation() async {
@@ -42,21 +59,31 @@ class _MyHomePageState extends State<MyHomePage>  {
 
     return await Geolocator.getCurrentPosition();
   }
-
+  // @override
+  // void initState() {
+  //  // _markers = [1, 2,3];
+  //   // _markers.addAll(_markers);
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          title:  Text('GoogleMap'),
+          title:  const Text('GoogleMap'),
           backgroundColor: Colors.lightBlue,
         ),
         body: GoogleMap(
+          //zoomControlsEnabled: false,
+          //zoomControlsEnabled: false,
+          myLocationButtonEnabled: true,
+          myLocationEnabled: true,
           onMapCreated: (GoogleMapController controller){
             _controller.complete(controller);
           },
           markers: Set<Marker>.of(_markers),
+
          initialCameraPosition: _initPostion,
         ),
       floatingActionButton: FloatingActionButton(
@@ -64,19 +91,18 @@ class _MyHomePageState extends State<MyHomePage>  {
           getUserCurrentLocation().then((value)async{
             print("My current location");
             print(value.latitude.toString() +" "+ value.longitude.toString());
-
             _markers.add(
               Marker(
-                  markerId: MarkerId('2'),
+                  markerId: const MarkerId('2'),
                   position: LatLng(value.latitude,value.longitude),
-                  infoWindow: InfoWindow(
+                  infoWindow: const InfoWindow(
                     title: 'My Current Location'
                   )
               )
             );
 
             CameraPosition cameraPosition1 = CameraPosition(
-                zoom: 25,
+                zoom: 9,
                 target: LatLng(value.latitude,value.longitude)
             );
             final GoogleMapController controller1 = await _controller.future;
@@ -90,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage>  {
         },
         //elevation: 10,
 
-        child:  Icon(Icons.my_location),
+        child:  const Icon(Icons.my_location),
       ),
       );
 
