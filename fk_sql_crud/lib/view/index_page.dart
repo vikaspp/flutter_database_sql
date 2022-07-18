@@ -52,29 +52,30 @@ class _IndexPageState extends State<IndexPage> {
             ],
           ),
         ),
-        body: TabBarView(
-          children: [
-            EmployeeBuilder(
-              future: _getEmployee(),
-              onEdit: (value) {
-                {
-                  Navigator.of(context)
-                      .push(
-                    MaterialPageRoute(
-                      builder: (_) => EmployeeFormPage(employee: value),
-                      fullscreenDialog: true,
-                    ),
-                  )
-                      .then((_) => setState(() {}));
-                }
-              },
-              onDelete: _onEmployeeDelete,
-            ),
-            DesignationBuilder(
-              future: _getDesignation(),
-            ),
-          ],
-        ),
+        body: ListView.bu,
+        // body: TabBarView(
+        //   children: [
+        //     EmployeeBuilder(
+        //       listEmployees: _getEmployee(),
+        //       onEdit: (value) {
+        //         {
+        //           Navigator.of(context)
+        //               .push(
+        //             MaterialPageRoute(
+        //               builder: (_) => EmployeeFormPage(employee: value),
+        //               fullscreenDialog: true,
+        //             ),
+        //           )
+        //               .then((_) => setState(() {}));
+        //         }
+        //       },
+        //       onDelete: _onEmployeeDelete,
+        //     ),
+        //     DesignationBuilder(
+        //       future: _getDesignation(),
+        //     ),
+        //   ],
+        // ),
         floatingActionButton: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [

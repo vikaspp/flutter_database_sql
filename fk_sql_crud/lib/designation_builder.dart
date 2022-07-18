@@ -18,8 +18,8 @@ class DesignationBuilder extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         }
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        return DropdownMenuItem(
+          // padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {

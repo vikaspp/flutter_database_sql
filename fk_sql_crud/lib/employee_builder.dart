@@ -3,15 +3,14 @@ import 'package:fk_sql_crud/model/employee_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-
 class EmployeeBuilder extends StatelessWidget {
   const EmployeeBuilder({
     Key? key,
-    required this.future,
+    required this.listEmployees,
     required this.onEdit,
     required this.onDelete,
   }) : super(key: key);
-  final Future<List<Employee>> future;
+  final Future<List<Employee>> listEmployees;
   final Function(Employee) onEdit;
   final Function(Employee) onDelete;
 
@@ -24,7 +23,7 @@ class EmployeeBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Employee>>(
-      future: future,
+      future: listEmployees,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
